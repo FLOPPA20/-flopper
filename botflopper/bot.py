@@ -1,3 +1,4 @@
+from random import choice
 import time
 import random
 from config import token
@@ -25,13 +26,14 @@ def rand(message):
     bot.send_chat_action(message.chat.id, 'typing')
     time.sleep(5)
     bot.send_message(message.chat.id,random.randint(0,1000))
-@bot.message_handler(comands=[""])
+@bot.message_handler(commands=['coin_choice'])
+def coin_handler(message):
+    coin = choice(["ОРЕЛ", "РЕШКА"])
+    bot.reply_to(message, coin)
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     bot.reply_to(message, message.text)
-
-
 
 
 bot.infinity_polling()
